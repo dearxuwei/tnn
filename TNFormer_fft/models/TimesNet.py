@@ -268,13 +268,17 @@ class Model(nn.Module):
     def classification(self, x_enc, x_mark_enc):
         # embedding
         enc_out = self.enc_embedding(x_enc, None)  # [B,T,C]
+
         # TimesNet
         for i in range(self.layer):
             enc_out = self.layer_norm(self.model[i](enc_out))
 
+
         # configs.d_model = 64
         # embedding
         # enc_out = self.enc_embedding2(enc_out,None)  # [B,T,C]
+
+
 
         # transformer
         enc_out, attns = self.encoder(enc_out, attn_mask=None)

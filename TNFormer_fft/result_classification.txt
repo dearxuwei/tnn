@@ -447,3 +447,15 @@ accuracy:0.915data length:0.915
 classification_EEG_Transformer_[3]_EEG_ftM_sl96_ll48_pl96_dm32_nh8_el3_dl1_df32_fc3_ebtimeF_dtTrue_Exp_0_500ms  
 accuracy:0.815data length:0.815
 
+classification_EEG_TimesNet_[3]_EEG_ftMS_sl96_ll48_pl96_dm32_nh8_el3_dl1_df3_fc3_ebtimeF_dtTrue_Exp_0_125ms  
+accuracy:0.24285714285714285data length:0.24285714285714285
+
+classification_EEG_TimesNet_[3]_EEG_ftMS_sl96_ll48_pl96_dm8_nh8_el3_dl1_df3_fc3_ebtimeF_dtTrue_Exp_0_125ms  
+accuracy:0.2357142857142857data length:0.2357142857142857
+
+classification_EEG_TimesNet_[3]_EEG_ftMS_sl96_ll48_pl96_dm32_nh8_el3_dl1_df3_fc3_ebtimeF_dtTrue_Exp_0_125ms  
+accuracy:0.16428571428571428data length:0.16428571428571428
+
+classification_EEG_TimesNet_[1]_EEG_ftMS_sl96_ll48_pl96_dm32_nh8_el3_dl1_df3_fc3_ebtimeF_dtTrue_Exp_0_125ms  
+accuracy:0.20714285714285716data length:0.20714285714285716
+

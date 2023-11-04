@@ -17,9 +17,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='TimesNet')
 
     # 可以更改处
-    params = {'tw': 500, 'Fs': 1000, 'cl': 14, 'top_k': 2, 'num_kernels': 6, 'd_model': 32,
-              'e_layers': 3, 'all_runs': 700, 'subs_num': range(3,4),
-              'data_path': 'E:/BaiduNetdiskDownload/mat', 'model': 'TimesNet'}
+    params = {'tw': 125, 'Fs': 250, 'cl': 14, 'top_k': 2, 'num_kernels': 6, 'd_model': 32,
+              'e_layers': 3, 'all_runs': 50, 'subs_num': range(1,2),
+              'data_path': 'E:/Devin/bi-SiamCA-main/data_djl_dv', 'model': 'TimesNet'}
 
     parser.add_argument('--params', type=dict, default=params)
     # basic config
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     parser.add_argument('--use_amp', action='store_true', help='use automatic mixed precision training', default=False)
 
     # GPU
-    parser.add_argument('--use_gpu', type=bool, default=False, help='use gpu')
+    parser.add_argument('--use_gpu', type=bool, default=True, help='use gpu')
     parser.add_argument('--gpu', type=int, default=0, help='gpu')
     parser.add_argument('--use_multi_gpu', action='store_true', help='use multiple gpus', default=False)
     parser.add_argument('--devices', type=str, default='0,1,2,3', help='device ids of multile gpus')

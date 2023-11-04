@@ -3,10 +3,10 @@ import numpy as np
 import math
 from scipy.signal import cheb1ord, filtfilt, cheby1
 import os
-end_point = 1140
+end_point = 285
 import h5py
 
-Fs = 1000. # sampling freq
+Fs = 250. # sampling freq
 
 ################################################################################
 # prepare training or test dataset
@@ -20,14 +20,14 @@ Fs = 1000. # sampling freq
 #       x: dataset [?,tw,ch], ?=cl*runs*samples
 #       y: labels [?,1]
 #
-def prepare_data_as(subj,runs,tw, flag, root_path, cl=2,permutation=[0,1,2,3,4,5,6,7,8]):
+def prepare_data_as(subj,runs,tw, flag, root_path, cl=14,permutation=[0,1,2,3,4,5,6,7]):
 
-    step = 40 # 40ms
+    step = 4 # 40ms
     ch = len(permutation) # # of channels
     x = np.array([],dtype=np.float32).reshape(0,tw,ch) # data
     y = np.zeros([0], dtype=np.int32)  # true label
     # 构建文件路径
-    file_name = 'S' + str(subj[0]) + 'C.mat'
+    file_name = 'S' + str(subj[0]) + '.mat'
     file_path = os.path.join(root_path, file_name)
     # 用正斜杠替换反斜杠
     file_path = file_path.replace('\\', '/')
@@ -39,8 +39,8 @@ def prepare_data_as(subj,runs,tw, flag, root_path, cl=2,permutation=[0,1,2,3,4,5
     # file = loadmat(r'F:/Devin/Dataset/Benchmark Dataset/40个目标/S'+str(subj)+'.mat')['data']
     # file = loadmat('F:Devin\\Dataset\\Benchmark Dataset\\40\\S3.mat')['data']
     for run_idx in runs:
-        for freq_idx in range(2):
-            raw_data = file[freq_idx, permutation, 140:end_point, run_idx].T
+        for freq_idx in range(cl):
+            raw_data = file[freq_idx, permutation, 35:end_point, run_idx].T
 
             if flag == "TRAIN":
                 n_samples = int(math.floor((raw_data.shape[0] - tw) / step))
@@ -55,9 +55,30 @@ def prepare_data_as(subj,runs,tw, flag, root_path, cl=2,permutation=[0,1,2,3,4,5
             x = np.append(x, _x, axis=0)  # [?,tw,ch], ?=runs*cl*samples
             y = np.append(y, _y)  # [?,1]
 
-    # x = filter(x)
-    # x_ = np.zeros([x.shape[0], ch, tw])  # data
-    # x_ = x.transpose(0, 2, 1)
+
+    # import matplotlib
+    # matplotlib.use('TkAgg')  # 或其他后端名称
+    # import matplotlib.pyplot as plt
+    #
+    # # 选择一个通道
+    # channel = 0  # 选择第一个通道（0表示第一个通道，1表示第二个通道，以此类推）
+    #
+    # # 选择要画的切片
+    # slice_index = 0  # 选择第一个切片（0表示第一个切片，1表示第二个切片，以此类推）
+    #
+    # # 获取要画的数据
+    # data_to_plot = x[ slice_index,:, channel]
+    #
+    # # 创建时间序列（如果没有时间信息，可以使用样本索引）
+    # time = range(len(data_to_plot))
+    #
+    # # 绘制图
+    # plt.plot(time, data_to_plot)
+    # plt.xlabel('时间')
+    # plt.ylabel('数值')
+    # plt.title(f'Channel {channel} - Slice {slice_index}')
+    # plt.show()
+    x = normalize(x)
     print('S'+str(subj)+'|x',x.shape)
     return x, y
 
